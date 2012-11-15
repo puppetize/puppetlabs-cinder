@@ -14,6 +14,7 @@ class cinder::db::mysql (
   Class['mysql::server'] -> Class['cinder::db::mysql']
   Class['cinder::db::mysql'] -> Exec<| title == 'cinder-manage db_sync' |>
   Database[$dbname] ~> Exec<| title == 'cinder-manage db_sync' |>
+  Database[$dbname] ~> Service['cinder-volume']
 
   mysql::db { $dbname:
     user         => $user,
